@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 //use app\Http\Controllers\EmpleadoController;
 
@@ -19,8 +20,7 @@ Route::get('create',[App\Http\Controllers\EmpleadoController::class,'create']);
 //Aqui como estoy trayendo el "use" no ocupo darle la direccion del namespace está sería la otra forma
 //Route::get('create',[EmpleadoController::class,'index']);
 
-Route::get('/', function () {
-    return view('welcome');
+
 });
 Route::get('/empleado', function () {
     return view('empleado.index');
@@ -33,8 +33,22 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Aquí traigo a todos los metodos del controlador "EmpleadoController"
 // por lo que ya puedo acceder a sus vistas y lo que yo le ponga
-Route::resource('metodosEmpleado', App\Http\Controllers\EmpleadoController::class);
-Auth::routes();
+//el middlewere hace que para acceder a esos metodos tenga que estar autenticado
+Route::resource('metodosEmpleado', App\Http\Controllers\EmpleadoController::class)->middleware('auth');
+//le indico que no quiero el resgister y el reset
+Auth::routes(['register'=>false,'reset'=>false]);
 
+Route::get('/', function () {
+    return view('auth.login');
+});
+Route::get('/metodosEmpleado', function () {
+    return view('auth.login');
+});
+
+
+
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('/home', [App\Http\Controllers\EmpleadoController::class, 'index']);
+});
 
 

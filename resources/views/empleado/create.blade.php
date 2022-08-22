@@ -1,4 +1,10 @@
 Formulario de creación de empleado
+@extends('layouts.app')
+
+@section('content')
+   
+<div class="container">
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +14,7 @@ Formulario de creación de empleado
     <title>Document</title>
     
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+   
 </head>
 <body>
  
@@ -28,7 +34,7 @@ del mismo sistema
             @csrf
         @include('empleado.form')
         </form>
-        <a href="{{url('/metodosEmpleado')}}">cancelar</a>
+        <a href="{{url('/home')}}">cancelar</a>
 
        
 
@@ -38,6 +44,9 @@ del mismo sistema
     </div>
 
 </div>
+
+</div>
+@endsection
 
 </body>
 </html>
